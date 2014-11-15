@@ -49,7 +49,8 @@ class Gcalendar():
         while True:
             events = self.service.events().list(calendarId=calendarId, pageToken=page_token).execute()
             for event in events['items']:
-                results.append(Event(event))
+	    	if event['status'] != u'cancelled':
+                    results.append(Event(event))
             page_token = events.get('nextPageToken')
             if not page_token:
                 break
@@ -106,11 +107,11 @@ class Event:
 
     def __init__(self, event=None):
         if event:
-            self.id = event['id']
-            self.summary = event['summary']
-            try:
+	    self.id = event['id']
+	    self.summary = event['summary']
+	    try:
                 self.description = event['description']
-            except:
+            except KeyError:
                 self.description = None
             try:
                 _start = event['start']['dateTime']
@@ -121,7 +122,7 @@ class Event:
                 self.endTime = _end.split("T")[1].split("-")[0]
                 self.allday = False
                 self.eventType = None
-            except:
+            except KeyError:
                 _start = event['start']['date']
                 _end = event['end']['date']
                 self.startDate = _start
