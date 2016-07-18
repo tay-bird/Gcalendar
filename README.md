@@ -1,9 +1,6 @@
 # Gcalendar.
 This package can be used to fetch calendar and event information from **Google Calendar**.
 
-## Requirements.
-This package requires the oauth2client and apiclient packages, which are available in the [Google API Python Client](https://code.google.com/p/google-api-python-client/downloads/list).
-
 ## Usage.
 Make sure the oauth2client and apiclient packages are in your project's working directory. You will need to use the oauth2client package to get a valid *credentials* object. This tutorial assumes you have successfully done this.
 
